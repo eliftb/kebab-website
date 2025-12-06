@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Menü | Şanlıurfa Kebap Silivri</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- ANA SAYFA İLE AYNI RENK PALETİ --- */
+        :root {
+            --primary: #c0392b;    /* Ana Kırmızı */
+            --accent: #c0392b;     /* Vurgular da Kırmızı (Sarı Yok) */
+            --text-dark: #4a342e;  /* Acı Kahve */
+            --text-light: #7a6a6a;
+            --bg-warm: #fff8e1;    /* Krem Zemin */
+            --white: #ffffff;
+            --border: 1px solid rgba(74, 52, 46, 0.1);
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: var(--bg-warm); 
+            color: var(--text-dark); 
+            padding-bottom: 80px;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
+        /* --- HEADER (SABİT) --- */
+        .menu-header {
+            background: rgba(255, 248, 225, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(192, 57, 43, 0.1);
+            padding-bottom: 5px;
+        }
+        
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px;
+        }
+        .brand { font-size: 1.4rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .brand span { color: var(--text-dark); }
+
+        /* Dil Butonu */
+        .lang-btn {
+            font-size: 0.85rem; font-weight: 700; color: var(--text-dark);
+            border: 1px solid var(--text-dark); padding: 5px 12px; border-radius: 20px;
+            cursor: pointer; display: flex; align-items: center; gap: 5px;
+        }
+
+        /* Arama */
+        .search-container { padding: 0 20px 10px; }
+        .search-box {
+            background: var(--white); border: var(--border); border-radius: 50px;
+            padding: 10px 20px; display: flex; align-items: center; gap: 10px;
+            box-shadow: var(--shadow);
+        }
+        .search-box input {
+            border: none; background: transparent; width: 100%; font-size: 1rem; outline: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        .search-box i { color: var(--primary); opacity: 0.6; }
+
+        /* Kategori Menüsü (Yatay) */
+        .category-scroll {
+            display: flex; gap: 10px; overflow-x: auto; padding: 5px 20px 15px;
+            scrollbar-width: none;
+        }
+        .category-scroll::-webkit-scrollbar { display: none; }
+        
+        .cat-link {
+            padding: 8px 18px; font-size: 0.9rem; font-weight: 600;
+            background: var(--white); border: 1px solid transparent;
+            border-radius: 20px; white-space: nowrap; cursor: pointer;
+            color: var(--text-dark); box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .cat-link.active {
+            background: var(--primary); color: white;
+            box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+        }
+
+        /* --- LİSTE --- */
+        .menu-container { max-width: 800px; margin: 0 auto; padding-top: 10px; }
+        
+        .category-section { margin-bottom: 30px; }
+        .category-title {
+            padding: 10px 20px; font-size: 1.6rem; color: var(--primary);
+            position: relative; display: flex; align-items: center; gap: 10px;
+        }
+        .category-title::after {
+            content: ''; flex: 1; height: 1px; background: rgba(192, 57, 43, 0.2);
+        }
+
+        .menu-item {
+            background: var(--white); margin: 0 20px 15px; padding: 15px;
+            border-radius: 12px; display: flex; gap: 15px; align-items: center;
+            box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .menu-item:active { transform: scale(0.98); background: #fafafa; }
+
+        .item-img {
+            width: 80px; height: 80px; border-radius: 8px; object-fit: cover;
+            background: #eee; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .item-name { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; font-family: 'Playfair Display', serif; }
+        .item-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.3; margin-bottom: 5px; }
+
+        .item-price-box {
+            display: flex; flex-direction: column; align-items: flex-end; 
+            justify-content: space-between; height: 80px; min-width: 70px;
+        }
+        .price { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+        .add-btn {
+            width: 32px; height: 32px; background: var(--bg-warm); color: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; border: 1px solid var(--primary);
+        }
+
+        /* --- ALT BAR --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 65px;
+            background: var(--white); border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 2000; box-shadow: 0 -5px 20px rgba(0,0,0,0.03);
+        }
+        .nav-btn {
+            display: flex; flex-direction: column; align-items: center;
+            color: #999; text-decoration: none; font-size: 0.7rem; font-weight: 500;
+        }
+        .nav-btn i { font-size: 1.3rem; margin-bottom: 4px; }
+        .nav-btn.active { color: var(--primary); }
+
+        /* Dil Gizleme */
+        body[data-lang="tr"] .lang-en { display: none !important; }
+        body[data-lang="en"] .lang-tr { display: none !important; }
+    </style>
+</head>
+<body data-lang="tr">
+
+    <header class="menu-header">
+        <div class="top-bar">
+            <a href="index.html" class="brand">ŞANLIURFA<span>KEBAP</span></a>
+            <div class="lang-btn" onclick="toggleLanguage()">
+                <img src="https://flagcdn.com/w20/tr.png" id="lang-flag" width="20"> <span id="lang-text">TR</span>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Menüde ara..." onkeyup="filterMenu()">
+            </div>
+        </div>
+
+        <div class="category-scroll" id="catScroll">
+            <div class="cat-link active" onclick="scrollToId('corba', this)">Çorbalar</div>
+            <div class="cat-link" onclick="scrollToId('ara', this)">Ara Sıcak</div>
+            <div class="cat-link" onclick="scrollToId('salata', this)">Salatalar</div>
+            <div class="cat-link" onclick="scrollToId('kebap', this)">Kebaplar</div>
+            <div class="cat-link" onclick="scrollToId('durum', this)">Dürümler</div>
+            <div class="cat-link" onclick="scrollToId('lahmacun', this)">Lahmacun</div>
+            <div class="cat-link" onclick="scrollToId('pide', this)">Pideler</div>
+            <div class="cat-link" onclick="scrollToId('tatli', this)">Tatlılar</div>
+            <div class="cat-link" onclick="scrollToId('icecek', this)">İçecekler</div>
+        </div>
+    </header>
+
+    <div class="menu-container">
+
+        <div id="corba" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Çorbalar</span><span class="lang-en">Soups</span></h2>
+            
+            <div class="menu-item" data-name="mercimek çorbası">
+                <img src="çorba.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Corba'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Mercimek Çorbası</span><span class="lang-en">Lentil Soup</span></div>
+                    <div class="item-desc"><span class="lang-tr">Limon ile.</span><span class="lang-en">Served hot with lemon.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺110</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="ara" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Ara Sıcaklar</span><span class="lang-en">Appetizers</span></h2>
+
+            <div class="menu-item" data-name="içli köfte">
+                <img src="iclikofte.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Icli'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">İçli Köfte</span><span class="lang-en">Stuffed Meatball</span></div>
+                    <div class="item-desc"><span class="lang-tr">El yapımı, cevizli (Adet).</span><span class="lang-en">Handmade, with walnut (Piece).</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺110</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="çiğ köfte">
+                <img src="cigkofte.jpg" onerror="this.src='https://placehold.co/100/eee/b00?text=Cigkofte'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Çiğ Köfte</span><span class="lang-en">Spicy Bulgur</span></div>
+                    <div class="item-desc"><span class="lang-tr">Urfa usulü, porsiyon.</span><span class="lang-en">Urfa style.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺170</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="patates tava">
+                <img src="pattes.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Patates'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Patates Tava</span><span class="lang-en">French Fries</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺170</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="salata" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Salatalar</span><span class="lang-en">Salads</span></h2>
+
+            <div class="menu-item" data-name="çoban salata">
+                <img src="çoban.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Salata'" class="item-img">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Çoban Salata</span><span class="lang-en">Shepherd Salad</span></div></div>
+                <div class="item-price-box"><span class="price">₺90</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="mevsim salata">
+                <img src="mevsim.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Salata'" class="item-img">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Mevsim Salata</span><span class="lang-en">Seasonal Salad</span></div></div>
+                <div class="item-price-box"><span class="price">₺90</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="gavurdağı salata">
+                <img src="gavurdağ.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Salata'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Gavurdağı Salata</span><span class="lang-en">Walnut Salad</span></div>
+                    <div class="item-desc"><span class="lang-tr">Cevizli ve nar ekşili.</span><span class="lang-en">With walnuts.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺110</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="göbek salata">
+                <img src="göbek.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Salata'" class="item-img">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Göbek Salata</span><span class="lang-en">Lettuce Salad</span></div></div>
+                <div class="item-price-box"><span class="price">--</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="manda yoğurdu">
+                <img src="yoğurt.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Salata'" class="item-img">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Manda Yoğurdu</span><span class="lang-en">Buffalo Yogurt</span></div></div>
+                <div class="item-price-box"><span class="price">₺90</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="kebap" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Kebaplar</span><span class="lang-en">Kebabs</span></h2>
+
+            <div class="menu-item" data-name="adana kebap">
+                <img src="kebap-gorsel.jpg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Adana Kebap</span><span class="lang-en">Adana Kebab</span></div>
+                    <div class="item-desc"><span class="lang-tr">Zırh kıyması, acılı.</span><span class="lang-en">Spicy minced lamb.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺390</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="urfa kebap">
+                <img src="kebap-gorsel.jpg" onerror="this.src='https://placehold.co/100/eee/b00?text=Kebap'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Urfa Kebap</span><span class="lang-en">Urfa Kebab</span></div>
+                    <div class="item-desc"><span class="lang-tr">Zırh kıyması, acısız.</span><span class="lang-en">Mild minced lamb.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺390</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="çöp şiş">
+                <img src="çöpşiş.png" onerror="this.src='https://placehold.co/100/eee/b00?text=CopSis'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Çöp Şiş</span><span class="lang-en">Beef Shish</span></div>
+                    <div class="item-desc"><span class="lang-tr">Yumuşak dana eti.</span><span class="lang-en">Tender beef cubes.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="ciğer şiş">
+                <img src="ciger.JPG" onerror="this.src='https://placehold.co/100/eee/b00?text=CigerSis'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Ciğer Şiş</span><span class="lang-en">Liver Shish</span></div>
+                    <div class="item-desc"><span class="lang-tr">Taze kuzu ciğeri.</span><span class="lang-en">Lamb liver.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kuzu şiş">
+                <img src="çöpşiş.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Kuzu'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kuzu Şiş</span><span class="lang-en">Lamb Shish</span></div>
+                    <div class="item-desc"><span class="lang-tr">Terbiyeli kuzu eti.</span><span class="lang-en">Marinated lamb.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="tavuk şiş">
+                <img src="tavukşiş.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Tavuk'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Tavuk Şiş</span><span class="lang-en">Chicken Shish</span></div>
+                    <div class="item-desc"><span class="lang-tr">Özel soslu.</span><span class="lang-en">Marinated chicken.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺390</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kanat izgara">
+                <img src="kanat.JPG" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kanat Izgara</span><span class="lang-en">Grilled Wings</span></div>
+                    <div class="item-desc"><span class="lang-tr">Kömür ateşinde.</span><span class="lang-en">Charcoal grilled.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺390</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="patlıcanlı kebap">
+                <img src="patlıcanlı.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Patlicanli'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Patlıcanlı Kebap</span><span class="lang-en">Eggplant Kebab</span></div>
+                    <div class="item-desc"><span class="lang-tr">Zırh kıyması ve patlıcan.</span><span class="lang-en">Meat and eggplant.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="domatesli kebap">
+                <img src="domatesli.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Domatesli'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Domatesli Kebap</span><span class="lang-en">Tomato Kebab</span></div>
+                    <div class="item-desc"><span class="lang-tr">Közlenmiş domatesli.</span><span class="lang-en">With Grilled tomatoes.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="beyti sarma">
+                <img src="beyti.JPG" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Beyti Sarma</span><span class="lang-en">Beyti Kebab</span></div>
+                    <div class="item-desc"><span class="lang-tr">Yoğurtlu, soslu.</span><span class="lang-en">With Yogurt and sauce.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺450</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="alinazik">
+                <img src="alinazik.jpg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Alinazik</span><span class="lang-en">Ali Nazik</span></div>
+                    <div class="item-desc"><span class="lang-tr">Köz patlıcan yatağında.</span><span class="lang-en">On eggplant puree.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺420</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="söğürmeli kebap">
+                <img src="sogurmeli.jpg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Söğürmeli Kebap</span><span class="lang-en">Roasted Eggplant Kebab</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺400</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="ezmeli kebap">
+                <img src="ezmeli.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Ezmeli'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Ezmeli Kebap</span><span class="lang-en">Kebab with Ezme</span></div>
+                    <div class="item-desc"><span class="lang-tr">Acılı ezme yatağında.</span><span class="lang-en">On spicy tomato dip.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kasap köfte">
+                <img src="köfte.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Kofte'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kasap Köfte</span><span class="lang-en">Meatballs</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺390</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="vali karışık">
+                <img src="vali.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Karisik'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Vali Karışık Kebap</span><span class="lang-en">Mixed Kebab Platter</span></div>
+                    <div class="item-desc"><span class="lang-tr">Adana, Urfa, Tavuk, Kuzu.</span><span class="lang-en">Full assortment.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺770</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="iskender">
+                <img src="iskender.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Iskender'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">İskender (Kebaptan)</span><span class="lang-en">Iskender Kebab</span></div>
+                    <div class="item-desc"><span class="lang-tr">Domates soslu, tereyağlı.</span><span class="lang-en">Tomato sauce & butter.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺490</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="durum" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Dürümler</span><span class="lang-en">Wraps</span></h2>
+
+            <div class="menu-item" data-name="adana dürüm">
+                <img src="adanadrm.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Durum'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Adana Dürüm</span><span class="lang-en">Adana Wrap</span></div>
+                    <div class="item-desc"><span class="lang-tr">Acılı.</span><span class="lang-en">Spicy.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺230</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="urfa dürüm">
+                <img src="adanadrm.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Durum'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Urfa Dürüm</span><span class="lang-en">Urfa Wrap</span></div>
+                    <div class="item-desc"><span class="lang-tr">Acısız.</span><span class="lang-en">Mild.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺230</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="et şiş dürüm">
+                <img src="etdrm.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Durum'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Et Şiş Dürüm</span><span class="lang-en">Meat Skewer Wrap</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺270</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="tavuk şiş dürüm">
+                <img src="tavukdrm.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Durum'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Tavuk Şiş Dürüm</span><span class="lang-en">Chicken Wrap</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺210</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="ciğer şiş dürüm">
+                <img src="ciğerdrm.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Durum'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Ciğer Şiş Dürüm</span><span class="lang-en">Liver Wrap</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺280</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="lahmacun" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Lahmacun</span><span class="lang-en">Lahmacun</span></h2>
+
+            <div class="menu-item" data-name="lahmacun">
+                <img src="lahmacun.jpg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Lahmacun</span><span class="lang-en">Lahmacun</span></div>
+                    <div class="item-desc"><span class="lang-tr">Taş fırın, ince hamur.</span><span class="lang-en">Stone oven.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺100</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="acılı lahmacun">
+                <img src="lahmacun.jpg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Acılı Lahmacun</span><span class="lang-en">Spicy Lahmacun</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺100</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kaşarlı lahmacun">
+                <img src="kaşarlı.jpeg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kaşarlı Lahmacun</span><span class="lang-en">Cheese Lahmacun</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺130</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="özel lahmacun">
+                <img src="özellahmacun.png" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Özel Lahmacun</span><span class="lang-en">Special Lahmacun</span></div>
+                    <div class="item-desc"><span class="lang-tr">Bol malzemeli.</span><span class="lang-en">Extra toppings.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺150</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="fındık lahmacun">
+                <img src="fındıklhmcn.png" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Fındık Lahmacun</span><span class="lang-en">Mini Lahmacun</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺70</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="pide" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Pideler</span><span class="lang-en">Pide</span></h2>
+
+            <div class="menu-item" data-name="kıymalı pide">
+                <img src="kıymalı.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Pide'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kıymalı Pide</span><span class="lang-en">Minced Meat Pide</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺340</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kıymalı kaşarlı pide">
+                <img src="kıymakaşar.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Pide'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kıymlı Kaşarlı Pide</span><span class="lang-en">Minced Meat andCheese Pide</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺370</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kaşarlı pide">
+                <img src="pidekaşar.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Pide'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kaşarlı Pide</span><span class="lang-en">Cheese Pide</span></div>
+                    <div class="item-desc"><span class="lang-tr">Bol kaşarlı.</span><span class="lang-en">Lots of cheese.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺340</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kuşbaşılı pide">
+                <img src="kuşbaşılı.jpeg" onerror="this.src='https://placehold.co/100/eee/b00?text=Pide'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kuşbaşılı Pide</span><span class="lang-en">Diced Meat Pide</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺370</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="karışık pide">
+                <img src="karisikpide.JPG" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Karışık Pide</span><span class="lang-en">Mixed Pide</span></div>
+                    <div class="item-desc"><span class="lang-tr">Kuşbaşı, kıyma, kaşar.</span><span class="lang-en">Meat mix.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺370</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kuşbaşılı kaşarlı pide">
+                <img src="kuşkaş.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Pide'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kuşbaşılı Kaşarlı Pide</span><span class="lang-en">Diced Meat and Cheese Pide</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺370</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="sucuklu kaşarlı pide">
+                <img src="kaşarsucuk.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Pide'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Sucuklu Kaşarlı</span><span class="lang-en">Sausage & Cheese</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺370</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kavurmalı pide">
+                <img src="kavurmakaşar.jpeg" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Kavurmalı Pide</span><span class="lang-en">Roasted Meat Pide</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺440</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="tatli" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">Tatlılar</span><span class="lang-en">Desserts</span></h2>
+
+            <div class="menu-item" data-name="künefe">
+                <img src="kunefe-gorsel-min.JPG" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Künefe</span><span class="lang-en">Kunefe</span></div>
+                    <div class="item-desc"><span class="lang-tr">Hatay usulü, sıcak.</span><span class="lang-en">Hot cheese pastry.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺140</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="katmer">
+                <img src="katmer.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Katmer'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Katmer</span><span class="lang-en">Katmer</span></div>
+                    <div class="item-desc"><span class="lang-tr">Fıstıklı.</span><span class="lang-en">With Pistachio.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺160</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="fırın sütlaç">
+                <img src="sütlaç.png" onerror="this.src='https://placehold.co/100/eee/b00?text=Sutlac'" class="item-img">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Fırın Sütlaç</span><span class="lang-en">Rice Pudding</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">₺12,0</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="hayrabolu">
+                <div class="item-info">
+                    <div class="item-name"><span class="lang-tr">Hayrabolu</span><span class="lang-en">Cheese Dessert</span></div>
+                    <div class="item-desc"><span class="lang-tr">Tahinli.</span><span class="lang-en">With tahini.</span></div>
+                </div>
+                <div class="item-price-box"><span class="price">--</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+        <div id="icecek" class="category-section">
+            <h2 class="category-title"><span class="lang-tr">İçecekler</span><span class="lang-en">Drinks</span></h2>
+
+            <div class="menu-item" data-name="ayran">
+                <div class="item-info"><div class="item-name">Ayran</div></div>
+                <div class="item-price-box"><span class="price">₺50</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="şalgam">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Şalgam</span><span class="lang-en">Turnip Juice</span></div></div>
+                <div class="item-price-box"><span class="price">₺50</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="kutu içecekler">
+                <div class="item-info"><div class="item-name">Kutu İçecekler (Kola-Fanta-Sprite-Ice Tea)</div></div>
+                <div class="item-price-box"><span class="price">₺70</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="soda">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Soda</span><span class="lang-en">Mineral Water</span></div></div>
+                <div class="item-price-box"><span class="price">₺40</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="menu-item" data-name="su">
+                <div class="item-info"><div class="item-name"><span class="lang-tr">Su</span><span class="lang-en">Water</span></div></div>
+                <div class="item-price-box"><span class="price">₺20</span><div class="add-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-btn">
+            <i class="fas fa-home"></i><span>Anasayfa</span>
+        </a>
+        <a href="#" class="nav-btn active">
+            <i class="fas fa-utensils"></i><span>Menü</span>
+        </a>
+        <a href="index.html#iletisim" class="nav-btn">
+            <i class="fas fa-map-marker-alt"></i><span>Konum</span>
+        </a>
+        <a href="https://www.instagram.com/silivrisanliurfakebap/" target="_blank" class="nav-btn">
+            <i class="fab fa-instagram"></i><span>Takip</span>
+        </a>
+    </div>
+
+    <script>
+        // DİL DEĞİŞTİRME
+        function toggleLanguage() {
+            const currentLang = document.body.getAttribute('data-lang') === 'tr' ? 'en' : 'tr';
+            document.body.setAttribute('data-lang', currentLang);
+            document.getElementById('lang-text').innerText = currentLang.toUpperCase();
+            document.getElementById('lang-flag').src = currentLang === 'tr' ? 'https://flagcdn.com/w20/tr.png' : 'https://flagcdn.com/w20/gb.png';
+            document.getElementById('searchInput').placeholder = currentLang === 'tr' ? "Menüde ara..." : "Search menu...";
+        }
+
+        // KATEGORİ KAYDIRMA
+        function scrollToId(id, element) {
+            document.querySelectorAll('.cat-link').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            const target = document.getElementById(id);
+            if (target) {
+                const offset = 120; 
+                const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: pos, behavior: "smooth" });
+            }
+        }
+
+        // SCROLLSPY
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            document.querySelectorAll('.category-section').forEach(section => {
+                if (scrollY >= section.offsetTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            if (currentSection) {
+                document.querySelectorAll('.cat-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('onclick').includes("'" + currentSection + "'")) {
+                        link.classList.add('active');
+                        link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                });
+            }
+        });
+
+        // ARAMA
+        function filterMenu() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.menu-item').forEach(item => {
+                let name = item.getAttribute('data-name');
+                item.style.display = name.includes(input) ? "flex" : "none";
+            });
+            document.querySelectorAll('.category-section').forEach(sec => {
+                let visible = false;
+                sec.querySelectorAll('.menu-item').forEach(item => { if(item.style.display !== 'none') visible = true; });
+                sec.style.display = visible ? "block" : "none";
+            });
+        }
+    </script>
+
+</body>
+</html>

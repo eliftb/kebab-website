@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şanlıurfa Kebap Silivri | Lezzet Kapınızda</title>
+    <meta name="description" content="Silivri'de Şanlıurfa Kebap lezzeti. Yemeksepeti, Trendyol ve Getir ile sipariş verin.">
+    
+    <link rel="icon" type="image/png" href="Adsız tasarım (1).png">
+    <link rel="apple-touch-icon" href="Adsız tasarım (1).png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RENK PALETİ (SARI YOK, SADECE KIRMIZI & KREM) --- */
+        :root {
+            --primary: #c0392b;    /* Ana Kırmızı */
+            --accent: #c0392b;     /* Vurgular Kırmızı */
+            --text-dark: #4a342e;  /* Acı Kahve Yazı */
+            --bg-warm: #fff8e1;    /* Sıcak Krem Zemin */
+            --trans: 0.3s ease;
+            
+            /* Marka Renkleri */
+            --ys-color: #ea004b; 
+            --ty-color: #f27a1a; 
+            --gtr-color: #5d3ebc;
+            --fb-color: #1877F2;
+            --tt-color: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            background-color: var(--bg-warm); 
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; }
+
+        /* DİL GİZLEME SINIFLARI */
+        .hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .show { opacity: 1; transform: translateY(0); }
+        body[data-lang="tr"] .lang-en { display: none !important; }
+        body[data-lang="en"] .lang-tr { display: none !important; }
+        
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: var(--trans); background: transparent;
+        }
+        nav.scrolled { background: var(--primary); box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3); }
+        
+        .logo { font-size: 1.8rem; color: #fff; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        .logo span { color: #fff; }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a.nav-item { color: #fff; font-weight: 500; font-size: 1rem; }
+        
+        .nav-links .social-icon { 
+            font-size: 1.1rem; background: rgba(255,255,255,0.2); 
+            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; transition: var(--trans); color: white;
+        }
+        .nav-links .social-icon:hover { background: white; color: var(--primary); transform: scale(1.1); }
+
+        /* Dil Butonu */
+        .lang-btn {
+            color: white; border: 1px solid white; padding: 5px 10px; 
+            border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: bold;
+        }
+        .lang-btn:hover { background: white; color: var(--primary); }
+
+        /* HERO */
+        .hero {
+            height: 100vh; width: 100%;
+            background: linear-gradient(to bottom, rgba(192, 57, 43, 0.6), rgba(74, 52, 46, 0.8)), url('restaurant-outside.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .hero h1 { font-size: 4.5rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-bottom: 10px; }
+        .hero p { font-size: 1.6rem; margin-bottom: 20px; font-weight: 300; }
+        
+        .typewriter { font-size: 1.8rem; color: #fff; font-weight: bold; min-height: 1.6em; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+        
+        .hero-btn {
+            margin-top: 30px; padding: 15px 40px; background: white; color: var(--primary);
+            border-radius: 50px; font-weight: bold; border: 2px solid white; transition: var(--trans);
+        }
+        .hero-btn:hover { background: transparent; color: white; }
+
+        /* SECTIONS */
+        .section { padding: 80px 20px; position: relative; }
+        .container { max-width: 1200px; margin: auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { 
+            font-size: 2.8rem; color: var(--primary); display: inline-block; 
+            padding: 0 20px; position: relative; z-index: 2;
+        }
+        .section-header::after { 
+            content: ''; display: block; width: 120px; height: 3px; 
+            background: var(--primary); margin: 5px auto 0;
+        }
+
+        /* ABOUT */
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .about-text h3 { color: var(--text-dark); margin-bottom: 15px; font-size: 1.8rem; }
+        .about-text p { margin-bottom: 20px; font-size: 1.1rem; color: #555; }
+        
+        .highlight-box { 
+            border-left: 4px solid var(--primary); padding-left: 20px; margin: 30px 0; 
+            font-style: italic; color: var(--primary); font-weight: bold; 
+        }
+        .about-img img { width: 100%; border-radius: 15px; box-shadow: 20px 20px 0 var(--primary); }
+
+        /* SLIDER */
+        .slider-wrapper { 
+            position: relative; max-width: 900px; margin: auto; height: 500px; 
+            border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 5px solid #fff; 
+        }
+        .slide { display: none; width: 100%; height: 100%; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slide.active { display: block; animation: fade 1s; }
+        .slide-caption { 
+            position: absolute; bottom: 30px; left: 30px; 
+            background: rgba(192, 57, 43, 0.9); 
+            color: white; padding: 10px 20px; border-radius: 5px; font-size: 1.2rem; 
+        }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        /* PARALLAX */
+        .parallax-divider { 
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('kebap-atesi.jpg'); 
+            background-attachment: fixed; background-position: center; background-size: cover; 
+            height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; color: white; margin: 60px 0; 
+        }
+        .parallax-divider h3 { font-size: 3rem; text-shadow: 2px 2px 4px #000; color: #fff; margin-bottom: 10px; }
+        .parallax-divider p { font-size: 1.3rem; max-width: 700px; }
+
+        /* ORDER */
+        #siparis { background: white; border-radius: 20px; padding: 50px; margin-bottom: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .order-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+        .order-card { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            padding: 35px; border-radius: 15px; color: white; text-align: center; 
+            transition: transform 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+        }
+        .order-card:hover { transform: translateY(-10px); filter: brightness(1.1); }
+        .order-card i { font-size: 3rem; margin-bottom: 15px; }
+        .order-card span { font-weight: bold; font-size: 1.3rem; }
+        .btn-ys { background-color: var(--ys-color); }
+        .btn-ty { background-color: var(--ty-color); }
+        .btn-gtr { background-color: var(--gtr-color); }
+
+        /* SOCIAL MEDIA */
+        #sosyal-medya { background: #f9f9f9; padding-bottom: 50px; }
+        .social-wrapper { text-align: center; }
+        .social-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
+        .social-big-btn { 
+            width: 80px; height: 80px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 2.5rem; color: white; transition: 0.3s; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); 
+        }
+        .social-big-btn:hover { transform: scale(1.1) rotate(10deg); }
+        .btn-fb { background-color: var(--fb-color); }
+        .btn-tt { background-color: var(--tt-color); }
+        .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
+        /* CONTACT */
+        #iletisim { background: var(--primary); color: white; }
+        #iletisim h2 { color: #fff; border-bottom: 2px solid rgba(255,255,255,0.3); display:inline-block; padding-bottom:5px; }
+        .contact-wrapper { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+        .contact-details { text-align: left; flex: 1; min-width: 300px; font-size: 1.1rem; }
+        .contact-details p { margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .contact-details i { font-size: 1.5rem; color: white; width: 30px; text-align: center; }
+        .map-container { flex: 1; min-width: 300px; height: 350px; border-radius: 15px; overflow: hidden; border: 4px solid rgba(255,255,255,0.3); }
+
+        footer { background: #222; color: #aaa; text-align: center; padding: 25px; }
+        
+        @media (max-width: 768px) { 
+            .nav-links { gap: 10px; } 
+            .nav-links a.nav-item { display: none; } 
+            .hero h1 { font-size: 3rem; } 
+            .about-content { grid-template-columns: 1fr; } 
+        }
+    </style>
+</head>
+<body data-lang="tr">
+
+    <nav id="navbar">
+        <div class="logo">Şanlıurfa<span>Kebap</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">
+                <span class="lang-tr">Ana Sayfa</span><span class="lang-en">Home</span>
+            </a>
+            <a href="#hakkimizda" class="nav-item">
+                <span class="lang-tr">Hikaye</span><span class="lang-en">Story</span>
+            </a>
+            <a href="menu.html" class="nav-item" style="color: #fff; font-weight: bold; border-bottom: 2px solid white;">
+                <span class="lang-tr">Menü</span><span class="lang-en">Menu</span>
+            </a>
+            <a href="#siparis" class="nav-item">
+                <span class="lang-tr">Sipariş</span><span class="lang-en">Order</span>
+            </a>
+            <a href="#iletisim" class="nav-item">
+                <span class="lang-tr">İletişim</span><span class="lang-en">Contact</span>
+            </a>
+            
+            <a href="https://www.facebook.com/balonev?locale=tr_TR" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/silivrisanliurfakebap/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            
+            <div class="lang-btn" onclick="toggleLanguage()">TR | EN</div>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <h1>
+            <span class="lang-tr">Hoş Geldiniz</span>
+            <span class="lang-en">Welcome</span>
+        </h1>
+        <p>
+            <span class="lang-tr">Silivri'deki Lezzet Eviniz</span>
+            <span class="lang-en">Your Home of Taste in Silivri</span>
+        </p>
+        <div class="typewriter"><span id="typing-text"></span></div>
+        <a href="menu.html" class="hero-btn">
+            <span class="lang-tr">Menüyü İncele</span><span class="lang-en">View Menu</span>
+        </a>
+    </section>
+
+    <section id="hakkimizda" class="section">
+        <div class="container">
+            <div class="section-header hidden">
+                <h2>
+                    <span class="lang-tr">Hikayemiz</span>
+                    <span class="lang-en">Our Story</span>
+                </h2>
+                <p style="margin-top: 10px; color: #777;">
+                    <span class="lang-tr">Geçmişten Günümüze Bir Lezzet Mirası</span>
+                    <span class="lang-en">A Legacy of Taste from Past to Present</span>
+                </p>
+            </div>
+            <div class="about-content">
+                <div class="about-img hidden"><img src="sahibin_fotografi.png" alt="Ahmet Usta"></div>
+                <div class="about-text hidden">
+                    <h3>Bedir Şark'tan Bugüne...</h3>
+                    <p>Silivri’nin köklü lezzet duraklarından biri olarak, yıllar önce <strong>Bedir Şark</strong> adıyla başladığımız bu serüven, bugün <strong>Şanlıurfa Kebap</strong> markasıyla kaldığı yerden devam ediyor.</p>
+                    <p>Mutfakta kullandığımız her malzeme, mevsiminde ve en taze haliyle seçilir. Zırh kıymamız, özel baharat karışımlarımız ve <strong>taş fırınımızda özenle pişen</strong> lezzetler, mutfağımızın değişmez sırlarıdır. </p>
+                    <div class="highlight-box">
+                        <span class="lang-tr">"Bizim için burası sadece bir restoran değil; dostlarımızı evimizde ağırladığımız, anıların tazelendiği bir buluşma noktasıdır."</span>
+                        <span class="lang-en">"For us, this is not just a restaurant; it is a meeting point where we host our friends as if they were in our home."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeri" class="section">
+        <div class="container">
+            <div class="section-header hidden">
+                <h2>
+                    <span class="lang-tr">Lezzet Kareleri</span>
+                    <span class="lang-en">Taste Gallery</span>
+                </h2>
+                <p>
+                    <span class="lang-tr">Mutfağımızdan ve Sofranızdan Seçmeler</span>
+                    <span class="lang-en">Selections from Our Kitchen</span>
+                </p>
+            </div>
+            <div class="slider-wrapper hidden">
+                <div class="slide active"><img src="kebap-gorsel.jpg" alt="Kebap"><div class="slide-caption">Zırh Kıyması Kebap</div></div>
+                <div class="slide"><img src="alinazik.jpg" alt="Alinazik"><div class="slide-caption">Alinazik</div></div>
+                <div class="slide"><img src="lahmacun.jpg" alt="Lahmacun"><div class="slide-caption">Taş Fırın Lahmacun</div></div>
+                <div class="slide"><img src="beyti.JPG" alt="Beyti"><div class="slide-caption">Beyti Sarma</div></div>
+                <div class="slide"><img src="ciger.JPG" alt="Ciğer"><div class="slide-caption">Ciğer Kebap</div></div>
+                <div class="slide"><img src="sogurmeli.jpg" alt="Söğürmeli"><div class="slide-caption">Söğürmeli Kebabı</div></div>
+                <div class="slide"><img src="kanat.JPG" alt="Kanat"><div class="slide-caption">Kanat Kebap</div></div>
+                <div class="slide"><img src="kunefe-gorsel-min.JPG" alt="Künefe"><div class="slide-caption">Hatay Usulü Künefe</div></div>
+                <div class="slide"><img src="karisikpide.JPG" alt="Karışık Pide"><div class="slide-caption">Karışık Pide</div></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-divider">
+        <h3>
+            <span class="lang-tr">Geleneksel Lezzet, Modern Sunum</span>
+            <span class="lang-en">Traditional Taste, Modern Presentation</span>
+        </h3>
+        <p>Her tabakta ayrı bir ustalık, her lokmada ayrı bir lezzet.</p>
+    </div>
+
+    <section class="section">
+        <div class="container" id="siparis">
+            <div class="section-header hidden">
+                <h2>
+                    <span class="lang-tr">Tek Tıkla Kapında</span>
+                    <span class="lang-en">Order Online</span>
+                </h2>
+                <p>Favori uygulamanızdan hemen sipariş verin.</p>
+            </div>
+            <div class="order-grid hidden">
+                <a href="https://www.yemeksepeti.com/restaurant/pgcz/sanliurfa-kebap-pgcz" target="_blank" class="order-card btn-ys"><i class="fas fa-utensils"></i><span>Yemeksepeti</span></a>
+                <a href="https://tgoyemek.com/restoranlar/333243#bu-restoranin-en-sevilenleri" target="_blank" class="order-card btn-ty"><i class="fas fa-motorcycle"></i><span>Trendyol Yemek</span></a>
+                <a href="https://getir.com/yemek/restoran/sanliurfa-kebap-piri-mehmet-pasa-mah-silivri-istanbul/?adTrackingId=" target="_blank" class="order-card btn-gtr"><i class="fas fa-shopping-bag"></i><span>Getir</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="iletisim" class="section">
+        <div class="container">
+            <div class="section-header hidden">
+                <h2>
+                    <span class="lang-tr">Bize Ulaşın</span>
+                    <span class="lang-en">Contact Us</span>
+                </h2>
+            </div>
+            <div class="contact-wrapper hidden">
+                <div class="contact-details">
+                    <p><i class="fas fa-map-marker-alt"></i> <span>Piri Mehmet Paşa, Sanatkarlar Cd. 4b, Silivri/İstanbul</span></p>
+                    <p><i class="fas fa-phone"></i> <span>+90 212 728 55 25</span></p>
+                    <p><i class="fas fa-clock"></i> <span>Her Gün: 09:00 - 23:30</span></p>
+                    <div style="margin-top: 20px; font-style: italic; color: #ddd;">
+                        <span class="lang-tr">"Rezervasyon için bizi arayabilirsiniz."</span>
+                        <span class="lang-en">"Call us for reservations."</span>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Piri+Mehmet+Paşa,+Sanatkarlar+Cd.+4b,+Silivri&hl=tr&z=15&output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sosyal-medya" class="section">
+        <div class="container social-wrapper">
+            <div class="section-header hidden" style="margin-bottom: 30px;">
+                <h2>
+                    <span class="lang-tr">Bizi Takip Edin</span>
+                    <span class="lang-en">Follow Us</span>
+                </h2>
+            </div>
+            <div class="social-grid hidden">
+                <a href="https://www.facebook.com/balonev?locale=tr_TR" target="_blank" class="social-big-btn btn-fb"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/silivrisanliurfakebap/" target="_blank" class="social-big-btn btn-ig"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@ismailustaurfakebap" target="_blank" class="social-big-btn btn-tt"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer><p>© 2025 Şanlıurfa Kebap Silivri.</p></footer>
+
+    <script>
+        // DİL DEĞİŞTİRME
+        let currentLang = sessionStorage.getItem('lang') || 'tr';
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            document.body.setAttribute('data-lang', currentLang);
+            sessionStorage.setItem('lang', currentLang);
+        }
+        // Sayfa açılışında dili ayarla
+        document.body.setAttribute('data-lang', currentLang);
+
+        // Daktilo Efekti
+        const texts = ["Gerçek Urfa Lezzeti", "Ailenizin Kebapçısı", "Sıcak ve Samimi"];
+        let count = 0, index = 0, currentText = "", letter = "";
+        (function type() { if (count === texts.length) count = 0; currentText = texts[count]; letter = currentText.slice(0, ++index); document.getElementById('typing-text').textContent = letter; if (letter.length === currentText.length) { count++; index = 0; setTimeout(type, 2000); } else { setTimeout(type, 100); } }());
+        
+        // Navbar Scroll
+        window.addEventListener("scroll", function() { const nav = document.getElementById("navbar"); window.scrollY > 50 ? nav.classList.add("scrolled") : nav.classList.remove("scrolled"); });
+        
+        // Animasyon
+        const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('show'); }); });
+        document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+        
+        // Slider
+        let slideIndex = 0; const slides = document.querySelectorAll(".slide"); function showSlides() { slides.forEach(slide => slide.classList.remove("active")); slideIndex++; if (slideIndex > slides.length) slideIndex = 1; slides[slideIndex-1].classList.add("active"); setTimeout(showSlides, 3000); } if(slides.length > 0) showSlides();
+    </script>
+</body>
+</html>
