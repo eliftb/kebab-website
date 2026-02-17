@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ramazan İftar Menüsü | Şanlıurfa Kebap Silivri</title>
+    <meta name="description" content="Şanlıurfa Kebap Silivri Ramazan İftar Menüsü. Özel paket fiyatlarıyla iftarınızı taçlandırın.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary:   #c0392b;
+            --text-dark: #4a342e;
+            --bg-warm:   #fff8e1;
+            --white:     #ffffff;
+            --gold:      #b8860b;
+            --gold-lt:   #d4a843;
+            --trans:     0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-warm);
+            color: var(--text-dark);
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ── HEADER ── */
+        .menu-header {
+            background: rgba(255,248,225,0.96);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(192,57,43,0.12);
+        }
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px;
+        }
+        .brand { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+        .brand span { color: var(--text-dark); }
+
+        .back-btn {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.9rem; font-weight: 600; color: var(--primary);
+            border: 1px solid var(--primary); padding: 6px 14px; border-radius: 20px;
+            transition: var(--trans);
+        }
+        .back-btn:hover { background: var(--primary); color: white; }
+
+        /* ── HERO BANNER ── */
+        .ramazan-hero {
+            background: linear-gradient(135deg, #2c0a00 0%, #6b1a0e 45%, #3d0c00 100%);
+            padding: 55px 20px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .ramazan-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8860b' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 1;
+        }
+        .lantern { position: absolute; font-size: 2rem; animation: sway 3s ease-in-out infinite; opacity: 0.85; }
+        .lantern:nth-child(1) { top: 10px; left: 8%;  animation-delay: 0s; }
+        .lantern:nth-child(2) { top: 5px;  left: 22%; animation-delay: 0.4s; }
+        .lantern:nth-child(3) { top: 12px; right: 8%; animation-delay: 0.2s; }
+        .lantern:nth-child(4) { top: 6px;  right: 22%;animation-delay: 0.6s; }
+        @keyframes sway { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+
+        .hero-content { position: relative; z-index: 1; }
+        .hero-label {
+            display: inline-block;
+            background: rgba(184,134,11,0.25);
+            border: 1px solid var(--gold-lt);
+            color: var(--gold-lt);
+            font-size: 0.75rem; letter-spacing: 3px; font-weight: 700;
+            padding: 5px 16px; border-radius: 99px; margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+        .hero-title-ar {
+            font-size: 1.1rem; color: var(--gold-lt); letter-spacing: 4px;
+            margin-bottom: 6px; opacity: 0.85;
+        }
+        .hero-title {
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            color: white;
+            line-height: 1;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold-lt);
+            display: block;
+            font-size: 0.65em;
+        }
+        .hero-sub {
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem; font-weight: 300;
+            margin-top: 14px;
+        }
+        .crescent { font-size: 2.5rem; margin-top: 16px; display: block; }
+
+        /* ── SECTION ── */
+        .section { max-width: 900px; margin: 0 auto; padding: 40px 20px 0; }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem; color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .section-divider {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 36px;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(192,57,43,0.3));
+        }
+        .section-divider::after {
+            background: linear-gradient(to left, transparent, rgba(192,57,43,0.3));
+        }
+        .section-divider span { color: var(--gold); font-size: 1.1rem; }
+
+        /* ── PAKET KARTLARI ── */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        @media (max-width: 480px) {
+            .packages-grid { grid-template-columns: 1fr; }
+        }
+
+        .pkg-card {
+            background: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+        }
+        .pkg-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 45px rgba(192,57,43,0.15);
+        }
+
+        /* Öne çıkan kart (Vali Karışık) */
+        .pkg-card.featured {
+            border: 2px solid var(--gold-lt);
+        }
+        .featured-badge {
+            position: absolute; top: 14px; right: 14px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+            color: white; font-size: 0.7rem; font-weight: 700;
+            padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 10px rgba(184,134,11,0.4);
+        }
+
+        .pkg-img-wrap {
+            width: 100%; height: 200px; overflow: hidden;
+            background: #f0e8d8;
+        }
+        .pkg-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .pkg-card:hover .pkg-img-wrap img { transform: scale(1.05); }
+
+        .pkg-body { padding: 22px; }
+
+        .pkg-name {
+            font-size: 1.5rem; color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .pkg-price-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .pkg-price {
+            font-size: 2rem; font-weight: 700; color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+        .pkg-persons {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 0.8rem; color: #999; font-weight: 500;
+        }
+        .pkg-persons i { color: var(--gold); }
+
+        .pkg-divider {
+            height: 1px; background: rgba(74,52,46,0.08);
+            margin-bottom: 16px;
+        }
+
+        .pkg-section-label {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--primary); font-weight: 700; margin-bottom: 8px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .pkg-section-label::after {
+            content: ''; flex: 1; height: 1px; background: rgba(192,57,43,0.2);
+        }
+
+        .pkg-main-dish {
+            font-size: 1rem; font-weight: 700; color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        .pkg-choice {
+            font-size: 0.82rem; color: #777;
+            margin-bottom: 14px; line-height: 1.4;
+        }
+
+        .pkg-includes {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 6px;
+        }
+        .pkg-tag {
+            background: var(--bg-warm);
+            border: 1px solid rgba(74,52,46,0.12);
+            color: var(--text-dark);
+            font-size: 0.78rem; padding: 3px 10px;
+            border-radius: 99px;
+        }
+
+        .pkg-cta {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 18px;
+            background: var(--primary); color: white;
+            padding: 12px; border-radius: 12px;
+            font-weight: 700; font-size: 0.95rem;
+            transition: var(--trans);
+            border: none; width: 100%; cursor: pointer;
+        }
+        .pkg-cta:hover { background: #a93226; }
+        .pkg-card.featured .pkg-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+        }
+        .pkg-card.featured .pkg-cta:hover { filter: brightness(0.9); }
+
+        /* ── IÇERIYOR BÖLÜMÜ ── */
+        .all-includes {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .all-includes h3 {
+            font-size: 1.4rem; color: var(--primary);
+            margin-bottom: 20px; text-align: center;
+        }
+        .includes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+        .inc-item {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--bg-warm); border-radius: 10px;
+            padding: 12px; font-size: 0.88rem; font-weight: 500;
+        }
+        .inc-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+        /* ── NOT ── */
+        .note-box {
+            background: linear-gradient(135deg, #2c0a00, #6b1a0e);
+            color: white; border-radius: 16px;
+            padding: 28px 24px; margin-top: 36px; text-align: center;
+        }
+        .note-box h3 { color: var(--gold-lt); margin-bottom: 10px; font-size: 1.3rem; }
+        .note-box p { font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.7; }
+        .note-box .phone {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 22px; border-radius: 99px;
+            margin-top: 16px; font-weight: 700; font-size: 1.05rem; color: white;
+            transition: var(--trans);
+        }
+        .note-box .phone:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── BOTTOM NAV ── */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 65px;
+            background: var(--white); border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 2000; box-shadow: 0 -5px 20px rgba(0,0,0,0.04);
+        }
+        .nav-btn {
+            display: flex; flex-direction: column; align-items: center;
+            color: #999; text-decoration: none; font-size: 0.7rem; font-weight: 500;
+        }
+        .nav-btn i { font-size: 1.3rem; margin-bottom: 4px; }
+        .nav-btn.active { color: var(--primary); }
+
+        /* ── ANİMASYON ── */
+        .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="menu-header">
+        <div class="top-bar">
+            <a href="index.html" class="brand">ŞANLIURFA<span>KEBAP</span></a>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Ana Sayfa
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="ramazan-hero">
+        <span class="lantern">🪔</span>
+        <span class="lantern">🪔</span>
+        <span class="lantern">🪔</span>
+        <span class="lantern">🪔</span>
+        <div class="hero-content">
+            <div class="hero-label">✦ 2025 Ramazan Özel ✦</div>
+            <div class="hero-title-ar">رمضان كريم</div>
+            <h1 class="hero-title">
+                RAMAZAN
+                <em>İftar Menüsü</em>
+            </h1>
+            <p class="hero-sub">Sofranızı Şanlıurfa'nın özgün lezzetiyle buluşturun</p>
+            <span class="crescent">🌙</span>
+        </div>
+    </div>
+
+    <!-- PAKETLER -->
+    <div class="section">
+        <h2 class="section-title fade-up">İftar Paketlerimiz</h2>
+        <div class="section-divider fade-up"><span>✦</span></div>
+
+        <div class="packages-grid">
+
+            <!-- 1. ÖZEL LAHMACUN -->
+            <div class="pkg-card fade-up">
+                <div class="pkg-img-wrap">
+                    <img src="özellahmacun.png" onerror="this.src='https://placehold.co/600x200/6b1a0e/fff?text=Özel+Lahmacun'" alt="Özel Lahmacun Paketi">
+                </div>
+                <div class="pkg-body">
+                    <h3 class="pkg-name">Özel Lahmacun</h3>
+                    <div class="pkg-price-row">
+                        <span class="pkg-price">₺750</span>
+                        <span class="pkg-persons"><i class="fas fa-users"></i> Kişi başı</span>
+                    </div>
+                    <div class="pkg-divider"></div>
+
+                    <div class="pkg-section-label">Ana Yemek</div>
+                    <div class="pkg-main-dish">2 Adet Özel Lahmacun</div>
+                    <div class="pkg-choice">Taş fırında, ince hamur, bol malzeme</div>
+
+                    <div class="pkg-section-label">Pakete Dahil</div>
+                    <div class="pkg-includes">
+                        <span class="pkg-tag">🍵 Mercimek Çorbası</span>
+                        <span class="pkg-tag">🥐 Paçanga Böreği</span>
+                        <span class="pkg-tag">🌿 Çiğ Köfte</span>
+                        <span class="pkg-tag">🥗 Mevsim Salatası</span>
+                        <span class="pkg-tag">🌶️ Acılı Ezme</span>
+                        <span class="pkg-tag">🧄 Yoğurtlu Haydari</span>
+                        <span class="pkg-tag">🧈 Tereyağı</span>
+                        <span class="pkg-tag">🧀 Tulum Peyniri</span>
+                        <span class="pkg-tag">🫓 Ramazan Pidesi</span>
+                        <span class="pkg-tag">🌴 Hurma</span>
+                        <span class="pkg-tag">💧 Su & Meşrubat</span>
+                        <span class="pkg-tag">🍮 Güllaç</span>
+                        <span class="pkg-tag">🍚 Sütlaç</span>
+                        <span class="pkg-tag">🍯 Hayrabolu Tatlısı</span>
+                    </div>
+
+                    <button class="pkg-cta" onclick="window.location.href='tel:+902127285525'">
+                        <i class="fas fa-phone"></i> Rezervasyon Yap
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. KEBAP / PİDE -->
+            <div class="pkg-card fade-up">
+                <div class="pkg-img-wrap">
+                    <img src="adana-urfa.jpg" onerror="this.src='https://placehold.co/600x200/6b1a0e/fff?text=Kebap+%2F+Pide'" alt="Kebap Pide Paketi">
+                </div>
+                <div class="pkg-body">
+                    <h3 class="pkg-name">Kebap / Pide</h3>
+                    <div class="pkg-price-row">
+                        <span class="pkg-price">₺900</span>
+                        <span class="pkg-persons"><i class="fas fa-users"></i> Kişi başı</span>
+                    </div>
+                    <div class="pkg-divider"></div>
+
+                    <div class="pkg-section-label">Ana Yemek <span style="font-size:0.65rem;color:#aaa;font-weight:400;margin-left:4px;">(Tercihe Göre)</span></div>
+                    <div class="pkg-main-dish">Kebap veya Pide Seçimi</div>
+                    <div class="pkg-choice">Adana Kebap · Urfa Kebap · Tavuk Şiş · Tavuk Kanat · Pide Çeşitleri</div>
+
+                    <div class="pkg-section-label">Pakete Dahil</div>
+                    <div class="pkg-includes">
+                        <span class="pkg-tag">🍵 Mercimek Çorbası</span>
+                        <span class="pkg-tag">🥐 Paçanga Böreği</span>
+                        <span class="pkg-tag">🌿 Çiğ Köfte</span>
+                        <span class="pkg-tag">🥗 Mevsim Salatası</span>
+                        <span class="pkg-tag">🌶️ Acılı Ezme</span>
+                        <span class="pkg-tag">🧄 Yoğurtlu Haydari</span>
+                        <span class="pkg-tag">🧈 Tereyağı</span>
+                        <span class="pkg-tag">🧀 Tulum Peyniri</span>
+                        <span class="pkg-tag">🫓 Ramazan Pidesi</span>
+                        <span class="pkg-tag">🌴 Hurma</span>
+                        <span class="pkg-tag">💧 Su & Meşrubat</span>
+                        <span class="pkg-tag">🍮 Güllaç</span>
+                        <span class="pkg-tag">🍚 Sütlaç</span>
+                        <span class="pkg-tag">🍯 Hayrabolu Tatlısı</span>
+                    </div>
+
+                    <button class="pkg-cta" onclick="window.location.href='tel:+902127285525'">
+                        <i class="fas fa-phone"></i> Rezervasyon Yap
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. ÇÖP ŞİŞ / KAVURMA -->
+            <div class="pkg-card fade-up">
+                <div class="pkg-img-wrap">
+                    <img src="çöpşiş.png" onerror="this.src='https://placehold.co/600x200/6b1a0e/fff?text=Çöp+Şiş'" alt="Çöp Şiş Kavurma Paketi">
+                </div>
+                <div class="pkg-body">
+                    <h3 class="pkg-name">Çöp Şiş / Kavurma</h3>
+                    <div class="pkg-price-row">
+                        <span class="pkg-price">₺1.000</span>
+                        <span class="pkg-persons"><i class="fas fa-users"></i> Kişi başı</span>
+                    </div>
+                    <div class="pkg-divider"></div>
+
+                    <div class="pkg-section-label">Ana Yemek <span style="font-size:0.65rem;color:#aaa;font-weight:400;margin-left:4px;">(Tercihe Göre)</span></div>
+                    <div class="pkg-main-dish">Çöp Şiş veya Kavurma</div>
+                    <div class="pkg-choice">Kuzu Çöp Şiş · Kavurma</div>
+
+                    <div class="pkg-section-label">Pakete Dahil</div>
+                    <div class="pkg-includes">
+                        <span class="pkg-tag">🍵 Mercimek Çorbası</span>
+                        <span class="pkg-tag">🥐 Paçanga Böreği</span>
+                        <span class="pkg-tag">🌿 Çiğ Köfte</span>
+                        <span class="pkg-tag">🥗 Mevsim Salatası</span>
+                        <span class="pkg-tag">🌶️ Acılı Ezme</span>
+                        <span class="pkg-tag">🧄 Yoğurtlu Haydari</span>
+                        <span class="pkg-tag">🧈 Tereyağı</span>
+                        <span class="pkg-tag">🧀 Tulum Peyniri</span>
+                        <span class="pkg-tag">🫓 Ramazan Pidesi</span>
+                        <span class="pkg-tag">🌴 Hurma</span>
+                        <span class="pkg-tag">💧 Su & Meşrubat</span>
+                        <span class="pkg-tag">🍮 Güllaç</span>
+                        <span class="pkg-tag">🍚 Sütlaç</span>
+                        <span class="pkg-tag">🍯 Hayrabolu Tatlısı</span>
+                    </div>
+
+                    <button class="pkg-cta" onclick="window.location.href='tel:+902127285525'">
+                        <i class="fas fa-phone"></i> Rezervasyon Yap
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. VALİ KARIŞIK (ÖNER) -->
+            <div class="pkg-card featured fade-up">
+                <div class="featured-badge">⭐ En Çok Tercih</div>
+                <div class="pkg-img-wrap">
+                    <img src="vali.png" onerror="this.src='https://placehold.co/600x200/6b1a0e/fff?text=Vali+Karışık'" alt="Vali Karışık Paketi">
+                </div>
+                <div class="pkg-body">
+                    <h3 class="pkg-name">Vali Karışık</h3>
+                    <div class="pkg-price-row">
+                        <span class="pkg-price" style="color:var(--gold);">₺1.250</span>
+                        <span class="pkg-persons"><i class="fas fa-crown" style="color:var(--gold)"></i> Premium</span>
+                    </div>
+                    <div class="pkg-divider"></div>
+
+                    <div class="pkg-section-label" style="color:var(--gold);">Ana Yemek</div>
+                    <div class="pkg-main-dish">Vali Karışık Kebap</div>
+                    <div class="pkg-choice">Adana · Urfa · Tavuk · Kuzu — hepsi bir arada</div>
+
+                    <div class="pkg-section-label" style="color:var(--gold);">Pakete Dahil</div>
+                    <div class="pkg-includes">
+                        <span class="pkg-tag">🍵 Mercimek Çorbası</span>
+                        <span class="pkg-tag">🥐 Paçanga Böreği</span>
+                        <span class="pkg-tag">🌿 Çiğ Köfte</span>
+                        <span class="pkg-tag">🥗 Mevsim Salatası</span>
+                        <span class="pkg-tag">🌶️ Acılı Ezme</span>
+                        <span class="pkg-tag">🧄 Yoğurtlu Haydari</span>
+                        <span class="pkg-tag">🧈 Tereyağı</span>
+                        <span class="pkg-tag">🧀 Tulum Peyniri</span>
+                        <span class="pkg-tag">🫓 Ramazan Pidesi</span>
+                        <span class="pkg-tag">🌴 Hurma</span>
+                        <span class="pkg-tag">💧 Su & Meşrubat</span>
+                        <span class="pkg-tag">🍮 Güllaç</span>
+                        <span class="pkg-tag">🍚 Sütlaç</span>
+                        <span class="pkg-tag">🍯 Hayrabolu Tatlısı</span>
+                    </div>
+
+                    <button class="pkg-cta" onclick="window.location.href='tel:+902127285525'">
+                        <i class="fas fa-phone"></i> Rezervasyon Yap
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- HER PAKETTE ORTAK İÇERİK -->
+        <div class="all-includes fade-up">
+            <h3>🌙 Her Pakette Bulunur</h3>
+            <div class="includes-grid">
+                <div class="inc-item"><span class="inc-icon">🍵</span> Mercimek Çorbası</div>
+                <div class="inc-item"><span class="inc-icon">🥐</span> Paçanga Böreği</div>
+                <div class="inc-item"><span class="inc-icon">🌿</span> Çiğ Köfte</div>
+                <div class="inc-item"><span class="inc-icon">🥗</span> Mevsim Salatası</div>
+                <div class="inc-item"><span class="inc-icon">🌶️</span> Acılı Ezme</div>
+                <div class="inc-item"><span class="inc-icon">🧄</span> Yoğurtlu Haydari</div>
+                <div class="inc-item"><span class="inc-icon">🧈</span> Tereyağı</div>
+                <div class="inc-item"><span class="inc-icon">🧀</span> Tulum Peyniri</div>
+                <div class="inc-item"><span class="inc-icon">🫓</span> Ramazan Pidesi</div>
+                <div class="inc-item"><span class="inc-icon">🌴</span> Hurma (İftarlık)</div>
+                <div class="inc-item"><span class="inc-icon">💧</span> Su & Meşrubat</div>
+                <div class="inc-item"><span class="inc-icon">🍮</span> Güllaç</div>
+                <div class="inc-item"><span class="inc-icon">🍚</span> Sütlaç</div>
+                <div class="inc-item"><span class="inc-icon">🍯</span> Hayrabolu Tatlısı</div>
+            </div>
+        </div>
+
+        <!-- REZERVASYON NOTU -->
+        <div class="note-box fade-up">
+            <h3>🌙 Rezervasyon & Bilgi</h3>
+            <p>
+                İftar paketlerimiz için önceden rezervasyon yapmanızı tavsiye ederiz.<br>
+                Gruplar ve özel organizasyonlar için lütfen bizimle iletişime geçin.
+            </p>
+            <a href="tel:+902127285525" class="phone">
+                <i class="fas fa-phone"></i> +90 212 728 55 25
+            </a>
+        </div>
+
+        <div style="height:20px;"></div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-btn">
+            <i class="fas fa-home"></i><span>Anasayfa</span>
+        </a>
+        <a href="menu.html" class="nav-btn">
+            <i class="fas fa-utensils"></i><span>Menü</span>
+        </a>
+        <a href="#" class="nav-btn active">
+            <i class="fas fa-moon"></i><span>Ramazan</span>
+        </a>
+        <a href="index.html#iletisim" class="nav-btn">
+            <i class="fas fa-map-marker-alt"></i><span>Konum</span>
+        </a>
+    </div>
+
+    <script>
+        // Scroll animasyonu
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
