@@ -49,19 +49,19 @@ body::before {
 }
 
 /* ── NAVBAR ── */
-nav {
+#navbar {
   position: fixed; top:0; width:100%; z-index:1000;
   padding: 22px 60px;
   display: flex; justify-content:space-between; align-items:center;
   transition: var(--trans);
 }
-nav::before {
+#navbar::before {
   content:''; position:absolute; inset:0;
   background: linear-gradient(to bottom, rgba(14,11,8,0.9), transparent);
   transition: var(--trans); opacity:0;
 }
-nav.scrolled::before { opacity:1; }
-nav.scrolled {
+#navbar.scrolled::before { opacity:1; }
+#navbar.scrolled {
   padding: 14px 60px;
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(201,168,76,0.15);
@@ -479,8 +479,8 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  nav { padding:18px 24px; }
-  nav.scrolled { padding:12px 24px; }
+  #navbar { padding:18px 24px; }
+  #navbar.scrolled { padding:12px 24px; }
   .nav-links { display:none; }
   .hamburger { display:flex; }
   .section { padding:70px 24px; }
@@ -843,12 +843,12 @@ footer {
 <footer>
   <div class="footer-top">
     <div class="f-logo">Şanlıurfa <em>Kebap</em></div>
-    <nav class="footer-links">
+    <div class="footer-links">
       <a href="#hikaye"><span class="lang-tr">Hikaye</span><span class="lang-en">Story</span></a>
       <a href="menu.html"><span class="lang-tr">Menü</span><span class="lang-en">Menu</span></a>
       <a href="#siparis"><span class="lang-tr">Sipariş</span><span class="lang-en">Order</span></a>
       <a href="#iletisim"><span class="lang-tr">İletişim</span><span class="lang-en">Contact</span></a>
-    </nav>
+    </div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 Şanlıurfa Kebap Silivri. <span class="lang-tr">Tüm hakları saklıdır.</span><span class="lang-en">All rights reserved.</span></p>
